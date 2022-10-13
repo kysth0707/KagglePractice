@@ -7,32 +7,31 @@ import os
 dataframe = pd.read_csv("E:\\GithubProjects\\KagglePractice\\LOL_Wins\\high_diamond_ranked_10min.csv")
 ModelLoc = "E:\\GithubProjects\\KagglePractice\\LOL_Wins\\Model"
 InFolder = os.listdir(ModelLoc)
-ModelAlreayHave = False
-for Name in InFolder:
-	ModelAlreayHave = True
-	break
+
+
+ModelAlreayHave = True
 
 
 # print(list(dataframe.columns.values))
-DataHeaderDict = {'blueWardsPlaced' : True,
-				'blueWardsDestroyed' : True, 
+DataHeaderDict = {'blueWardsPlaced' : False,
+				'blueWardsDestroyed' : False, 
 				'blueFirstBlood' : True, 
 				'blueKills' : True, 
   				'blueDeaths' : True, 
-  				'blueAssists' : True, 
-  				'blueEliteMonsters' : True, 
+  				'blueAssists' : False, 
+  				'blueEliteMonsters' : False, 
   				'blueDragons' : True, 
-  				'blueHeralds' : True, 
-  				'blueTowersDestroyed' : True, 
+  				'blueHeralds' : False, 
+  				'blueTowersDestroyed' : False, 
   				'blueTotalGold' : True, 
-  				'blueAvgLevel' : True, 
-  				'blueTotalExperience' : True, 
+  				'blueAvgLevel' : False, 
+  				'blueTotalExperience' : False, 
   				'blueTotalMinionsKilled' : True, 
-  				'blueTotalJungleMinionsKilled' : True, 
-  				'blueGoldDiff' : True, 
-  				'blueExperienceDiff' : True, 
-  				'blueCSPerMin' : True, 
-  				'blueGoldPerMin' : True}
+  				'blueTotalJungleMinionsKilled' : False, 
+  				'blueGoldDiff' : False, 
+  				'blueExperienceDiff' : False, 
+  				'blueCSPerMin' : False, 
+  				'blueGoldPerMin' : False}
 DataHeaders = []
 for key in DataHeaderDict:
 	if DataHeaderDict[key] == True:
@@ -70,7 +69,7 @@ else:
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics=['accuracy'])
 
 # model.fit(학습, 결과, epochs = 학습횟수)
-model.fit(np.array(DataX), np.array(DataY), epochs = 50)
+model.fit(np.array(DataX), np.array(DataY), epochs = 1000)
 
 
 model.save(ModelLoc)
