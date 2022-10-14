@@ -6,7 +6,7 @@ FalseValue = -12345
 dataframe = pd.read_csv("E:\\GithubProjects\\KagglePractice\\LOL_Wins\\high_diamond_ranked_10min.csv")
 DataHeaderDict = {'blueWardsPlaced' : FalseValue, #와드 설치
 				'blueWardsDestroyed' : FalseValue, #와드 파괴
-				'blueFirstBlood' : 1, #퍼스트 블러드
+				'blueFirstBlood' : 0, #퍼스트 블러드
 				'blueKills' : 0, #킬
   				'blueDeaths' : 9, #데스
   				'blueAssists' : 0, #어시
@@ -15,14 +15,14 @@ DataHeaderDict = {'blueWardsPlaced' : FalseValue, #와드 설치
   				'blueHeralds' : 0, #전령
   				'blueTowersDestroyed' : FalseValue, #타워 파괴
   				'blueTotalGold' : 0, #총합 골드
-  				'blueAvgLevel' : 7.2, #평균 레벨
+  				'blueAvgLevel' : 0, #평균 레벨
   				'blueTotalExperience' : FalseValue, #총합 레벨
   				'blueTotalMinionsKilled' : 0, #총 미니언 킬 수
   				'blueTotalJungleMinionsKilled' : FalseValue, #정글 몹
   				'blueGoldDiff' : -10000, #돈 차이
-  				'blueExperienceDiff' : -0.5, #경험치 차이
-  				'blueCSPerMin' : 20, #분 당 CS
-  				'blueGoldPerMin' : 200, #분 당 골드
+  				'blueExperienceDiff' : 0, #경험치 차이
+  				'blueCSPerMin' : 0, #분 당 CS
+  				'blueGoldPerMin' : 0, #분 당 골드
 				}
 
 Datas = []
