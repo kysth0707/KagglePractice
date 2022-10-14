@@ -46,7 +46,7 @@ else:
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics=['accuracy'])
 
 # model.fit(학습, 결과, epochs = 학습횟수)
-model.fit(np.array(DataX), np.array(DataY), epochs = 1000)
+model.fit(np.array(DataX), np.array(DataY), epochs = 10000)
 
 
 model.save(ModelLoc)
