@@ -39,19 +39,22 @@ DataHeaderLen = len(DataHeaders)
 
 
 
-TestY = dataframe['blueWins'].values 
-TestX = []
+DataY = dataframe['blueWins'].values 
+DataX = []
 for i, rows in dataframe.iterrows():
 	Temp = []
 	for i in range(DataHeaderLen):
 		Temp.append(rows[DataHeaders[i]])
-	TestX.append(Temp)
+	DataX.append(Temp)
 
+
+# 테스트 셋, 트레인 셋 설정
+from sklearn.model_selection import train_test_split
+TrainX, TestX, TrainY, TestY = train_test_split(DataX, DataY, test_size=0.2, random_state=42)
 
 # 정규화
 TestX = np.array(TestX)
 TestX = TestX / TestX.max()
-
 
 model = tf.keras.models.load_model(ModelLoc)
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics=['accuracy'])
@@ -63,9 +66,9 @@ for Data in predict:
 	FullPercent += Data[0]
 	
 PercentA = FullPercent / len(predict) * 100
-print(f"예측 확률 : {PercentA} %")
+print(f"테스트 셋 예측 확률 : {PercentA} %")
 
 PercentB = dataframe['blueWins'].sum() / dataframe['blueWins'].count() * 100
-print(f"실제 확률 : {PercentB} %")
+print(f"트레인 셋 실제 확률 : {PercentB} %")
 
-print(f"\n\n전체 데이터 기준 : 약 {PercentA / PercentB * 100} %")
+print(f"\n\n테스트 / 트레인 셋 데이터 기준 : 약 {PercentA / PercentB * 100} %")
