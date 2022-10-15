@@ -13,6 +13,9 @@ def ReturnPos(loc):
 	return "E:\\GithubProjects\\KagglePractice\\GamePlay" + str(loc)
 
 
+LoadModel = True
+
+
 TrainDir = ReturnPos("\\Dataset\\Train")
 TestDir = ReturnPos("\\Dataset\\Test")
 
@@ -28,17 +31,20 @@ TestAmongUsDir = os.path.join(TestDir, 'Among Us')
 ModelDir = ReturnPos("\\Model")
 ImageSize = (640, 360)
 
-model = tf.keras.models.Sequential([
-	tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(ImageSize[0], ImageSize[1], 3)),
-	tf.keras.layers.MaxPooling2D(2,2),
-	tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
-	tf.keras.layers.MaxPooling2D(2,2),
-	tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
-	tf.keras.layers.MaxPooling2D(2,2),
-	tf.keras.layers.Flatten(),
-	tf.keras.layers.Dense(512, activation='relu'),
-	tf.keras.layers.Dense(1, activation='sigmoid')
-])
+if LoadModel:
+	model = tf.keras.models.load_model(ModelDir)
+else:
+	model = tf.keras.models.Sequential([
+		tf.keras.layers.Conv2D(16, (3,3), activation='relu', input_shape=(ImageSize[0], ImageSize[1], 3)),
+		tf.keras.layers.MaxPooling2D(2,2),
+		tf.keras.layers.Conv2D(32, (3,3), activation='relu'),
+		tf.keras.layers.MaxPooling2D(2,2),
+		tf.keras.layers.Conv2D(64, (3,3), activation='relu'),
+		tf.keras.layers.MaxPooling2D(2,2),
+		tf.keras.layers.Flatten(),
+		tf.keras.layers.Dense(512, activation='relu'),
+		tf.keras.layers.Dense(1, activation='sigmoid')
+	])
 
 # model.summary()
 
@@ -54,6 +60,9 @@ test_datagen  = tf.keras.preprocessing.image.ImageDataGenerator( rescale = 1.0/2
 train_generator = train_datagen.flow_from_directory(TrainDir, batch_size=20, class_mode='binary', target_size = ImageSize)
 validation_generator = test_datagen.flow_from_directory(TestDir, batch_size=20, class_mode='binary', target_size = ImageSize)
 
-history = model.fit(train_generator, validation_data=validation_generator, epochs=1)
+while True:
+	LearningTime = time.process_time()
+	history = model.fit(train_generator, validation_data=validation_generator, epochs=1)
+	print(time.process_time() - LearningTime)
 
-model.save(ModelDir)
+	model.save(ModelDir)
