@@ -60,15 +60,16 @@ model = tf.keras.models.load_model(ModelLoc)
 model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics=['accuracy'])
 
 
+predict = model.predict(TrainX)
+PercentA = sum(predict) / len(predict) * 100
+
 predict = model.predict(TestX)
-FullPercent = 0
-for Data in predict:
-	FullPercent += Data[0]
-	
-PercentA = FullPercent / len(predict) * 100
-print(f"테스트 셋 예측 확률 : {PercentA} %")
+PercentB = sum(predict) / len(predict) * 100
 
-PercentB = dataframe['blueWins'].sum() / dataframe['blueWins'].count() * 100
-print(f"트레인 셋 실제 확률 : {PercentB} %")
+PercentC = dataframe['blueWins'].sum() / dataframe['blueWins'].count() * 100
 
-print(f"\n\n테스트 / 트레인 셋 데이터 기준 : 약 {PercentA / PercentB * 100} %")
+print(f"트레인 셋 예측 확률 : {PercentA} %")
+print(f"테스트 셋 예측 확률 : {PercentB} %")
+print(f"실제 확률 : {PercentC}")
+
+print(f"\n\n데이터 기준 : 약 {PercentA / PercentB * 100} %")
