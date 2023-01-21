@@ -2,3 +2,4 @@ GamePlay/Dataset/*
 GamePlay/Model/*
 etc/AudioTest/data/*
 FaceDetection/Dataset/*
+HelmetDetection/Dataset/*
