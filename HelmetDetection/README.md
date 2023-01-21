@@ -14,6 +14,20 @@ https://github.com/kairess/torchvision_walkthrough/blob/master/segmentation.ipyn
 - 라이브러리를 어떻게 활용할 지에 대해 고민  
 결과  
 객체 판별 라이브러리 + 사람 형태 확인 라이브러리 섞어 쓰기
+  
+-2-1. 함수화 ( HelmetRegionChecker.py, 2-1.FunctionCheck.ipynb )
+
+-3. 헬맷 씌우기 ( 3.AddHelmetToFace.ipynb )
+- 이미지에서 얼굴을 인식해 흰색 안전모를 덮어씌워 줌  
+결과  
+잘 됨. 하지만 이로 인해 좋은 학습 결과가 나올지는 미지수  
+  
+-3-1. 헬맷 씌워주기 함수화 ( HelmetGenerator.py, 3-1.HelmetGenerator.ipynb )  
+  
+-4.모든 사진 헬맷 씌워서 저장시키기 ( 4.ConvertAllImage.ipynb )  
+- 이미지 생성  
+결과    
+정상적으로 잘 됨. 이제 데이터 뻥튀기 필요  
 
 References  
   
@@ -35,3 +49,7 @@ https://www.youtube.com/watch?v=WgsZc_wS2qQ
 https://github.com/kairess/torchvision_walkthrough  
 https://eehoeskrap.tistory.com/463  
 https://wikidocs.net/52846  
+  
+https://www.youtube.com/watch?v=C6qZXg4fLPY  
+http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2  
+https://webnautes.tistory.com/1410  

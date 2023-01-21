@@ -1,0 +1,8 @@
+cmake
+dlib
+tensorflow
+PIL
+torch
+torchvision
+matplotlib
+numpy
