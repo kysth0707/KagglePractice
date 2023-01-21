@@ -27,7 +27,14 @@ https://github.com/kairess/torchvision_walkthrough/blob/master/segmentation.ipyn
 -4.모든 사진 헬맷 씌워서 저장시키기 ( 4.ConvertAllImage.ipynb )  
 - 이미지 생성  
 결과    
-정상적으로 잘 됨. 이제 데이터 뻥튀기 필요  
+정상적으로 잘 됨 
+
+-5. 모델 제작 및 학습 ( 5.Learning.ipynb )
+- 모델을 제작하고 학습시킵니다 ( Tensorflow.model.Sequential )  
+정확도 99% 에서 학습을 중지함
+
+-6. 테스트 ( 6.Test.ipynb )
+- 위에서 적용한 함수들을 전부 사용해보며 테스트합니다.
 
 References  
   
@@ -53,3 +60,5 @@ https://wikidocs.net/52846
 https://www.youtube.com/watch?v=C6qZXg4fLPY  
 http://dlib.net/files/shape_predictor_68_face_landmarks.dat.bz2  
 https://webnautes.tistory.com/1410  
+  
+https://codetorial.net/tensorflow/classifying_the_cats_and_dogs.html  
