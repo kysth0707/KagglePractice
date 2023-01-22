@@ -53,36 +53,37 @@ def seg_map(img, n_classes=21):
 
 	return rgb
 
-def GetHelmetImages(ImagePos):
+def GetHelmetImages(ImagePos, IsClear : bool = False):
 	"""
 	이미지 주소를 입력해주세요
 	"""
 	# Section1
 	IMG_SIZE = 480
+	if IsClear:
+		deeplab = models.segmentation.deeplabv3_resnet101(pretrained=True).eval()
+		Height, Width = cv.imread(ImagePos).shape[:2]
+		img = Image.open(ImagePos).resize((600, 450))
 
-	# # deeplab = models.segmentation.deeplabv3_resnet101(pretrained=True).eval()
-	# # Height, Width = cv.imread(ImagePos).shape[:2]
-	# # img = Image.open(ImagePos).resize((600, 450))
+		trf = T.Compose([
+			T.Resize(IMG_SIZE),
+			T.ToTensor(),
+			T.Normalize(
+				mean=[0.485, 0.456, 0.406],
+				std=[0.229, 0.224, 0.225]
+			)
+		])
 
-	# # trf = T.Compose([
-	# # 	T.Resize(IMG_SIZE),
-	# # 	T.ToTensor(),
-	# # 	T.Normalize(
-	# # 		mean=[0.485, 0.456, 0.406],
-	# # 		std=[0.229, 0.224, 0.225]
-	# # 	)
-	# # ])
+		input_img = trf(img).unsqueeze(0)
 
-	# # input_img = trf(img).unsqueeze(0)
+		out = deeplab(input_img)['out']
 
-	# # out = deeplab(input_img)['out']
+		out = torch.argmax(out.squeeze(), dim=0)
+		out = out.detach().cpu().numpy()
 
-	# # out = torch.argmax(out.squeeze(), dim=0)
-	# # out = out.detach().cpu().numpy()
-
-	# # out_seg = seg_map(out)
-	# ClearImage = Image.fromarray(img.resize((640, 480)) & out_seg).resize((Width,Height))
-	ClearImage = Image.open(ImagePos)
+		out_seg = seg_map(out)
+		ClearImage = Image.fromarray(img.resize((640, 480)) & out_seg).resize((Width,Height))
+	else:
+		ClearImage = Image.open(ImagePos)
 
 	# Section 2
 

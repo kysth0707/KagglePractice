@@ -17,24 +17,46 @@ https://github.com/kairess/torchvision_walkthrough/blob/master/segmentation.ipyn
   
 -2-1. 함수화 ( HelmetRegionChecker.py, 2-1.FunctionCheck.ipynb )
 
--3. 헬맷 씌우기 ( 3.AddHelmetToFace.ipynb )
+-3. 이미지 사람만 추출 ( 3.ImageClearing.ipynb )
+- 이미지에서 사람만 추출합니다
+
+-4. 헬맷 씌우기 ( 4.AddHelmetToFace.ipynb )
 - 이미지에서 얼굴을 인식해 흰색 안전모를 덮어씌워 줌  
 결과  
 잘 됨. 하지만 이로 인해 좋은 학습 결과가 나올지는 미지수  
   
--3-1. 헬맷 씌워주기 함수화 ( HelmetGenerator.py, 3-1.HelmetGenerator.ipynb )  
+-4-1. 헬맷 씌워주기 함수화 ( HelmetGenerator.py, 4-1.HelmetGenerator.ipynb )  
   
--4.모든 사진 헬맷 씌워서 저장시키기 ( 4.ConvertAllImage.ipynb )  
+-5.모든 사진 헬맷 씌워서 저장시키기 ( 5.ConvertAllImage.ipynb )  
 - 이미지 생성  
 결과    
 정상적으로 잘 됨 
 
--5. 모델 제작 및 학습 ( 5.Learning.ipynb )
+-6. 모델 제작 및 학습 ( 6.Learning.ipynb )
 - 모델을 제작하고 학습시킵니다 ( Tensorflow.model.Sequential )  
 정확도 99% 에서 학습을 중지함
 
--6. 테스트 ( 6.Test.ipynb )
-- 위에서 적용한 함수들을 전부 사용해보며 테스트합니다.
+-7. 테스트 ( 7.Test.ipynb )
+- 위에서 적용한 함수들을 전부 사용해보며 테스트합니다.  
+결과  
+실패  
+
+-8. 이미지 변경 2차
+- with_helmet 이미지와 without_helmet 이미지의 사이즈 크기가 원인일 것 같아 다시 변경했습니다
+
+-9. 학습 2차
+- 동일 학습 코드로 재 학습합니다
+
+-10. 테스트 2차
+- 다시 테스트를 진행합니다  
+결과  
+정확도가 굉장히 낮습니다.. 4명 중 1명 만 착용 중일 것이라고 예측함.  
+
+10 까지의 결과  
+초록 : 헬맷 씀 / 빨강 : 헬맷 안 씀
+![image](https://user-images.githubusercontent.com/83905675/213908226-929b2ab6-1829-495c-a8ce-017d597b3073.png)
+![image](https://user-images.githubusercontent.com/83905675/213908229-72aca9bc-02c7-49c0-98ac-bee2f6c4497e.png)
+
 
 References  
   
