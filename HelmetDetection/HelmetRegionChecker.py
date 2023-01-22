@@ -10,6 +10,7 @@ import copy
 
 from matplotlib.path import Path
 import matplotlib.patches as patches
+import cv2 as cv
 
 print('pytorch', torch.__version__)
 print('torchvision', torchvision.__version__)
@@ -18,26 +19,26 @@ print('torchvision', torchvision.__version__)
 
 ColorArray = np.array([
 	(0, 0, 0),       # 0=background
-	(128, 0, 0),     # 1=aeroplane
-	(0, 128, 0),     # 2=bicycle
-	(128, 128, 0),   # 3=bird
-	(0, 0, 128),     # 4=boat
-	(128, 0, 128),   # 5=bottle
-	(0, 128, 128),   # 6=bus
-	(128, 128, 128), # 7=car
-	(255, 255, 127), # 8=cat
-	(192, 0, 0),     # 9=chair
-	(64, 128, 0),    # 10=cow
-	(192, 128, 0),   # 11=dining table
-	(64, 0, 128),    # 12=dog
-	(192, 0, 128),   # 13=horse
-	(64, 128, 128),  # 14=motorbike
+	(0, 0, 0),       # 1=aeroplane
+	(0, 0, 0),       # 2=bicycle
+	(0, 0, 0),       # 3=bird
+	(0, 0, 0),       # 4=boat
+	(0, 0, 0),       # 5=bottle
+	(0, 0, 0),       # 6=bus
+	(0, 0, 0),       # 7=car
+	(0, 0, 0),       # 8=cat
+	(0, 0, 0),       # 9=chair
+	(0, 0, 0),       # 10=cow
+	(0, 0, 0),       # 11=dining table
+	(0, 0, 0),       # 12=dog
+	(0, 0, 0),       # 13=horse
+	(0, 0, 0),       # 14=motorbike
 	(255, 255, 255), # 15=person
-	(0, 64, 0),      # 16=potted plant
-	(128, 64, 0),    # 17=sheep
-	(0, 192, 0),     # 18=sofa
-	(128, 192, 0),   # 19=train
-	(0, 64, 128)     # 20=tv/monitor
+	(0, 0, 0),       # 16=potted plant
+	(0, 0, 0),       # 17=sheep
+	(0, 0, 0),       # 18=sofa
+	(0, 0, 0),       # 19=train
+	(0, 0, 0),       # 20=tv/monitor
 ])
 
 def seg_map(img, n_classes=21):
@@ -59,27 +60,29 @@ def GetHelmetImages(ImagePos):
 	# Section1
 	IMG_SIZE = 480
 
-	deeplab = models.segmentation.deeplabv3_resnet101(pretrained=True).eval()
-	img = Image.open(ImagePos)
+	# # deeplab = models.segmentation.deeplabv3_resnet101(pretrained=True).eval()
+	# # Height, Width = cv.imread(ImagePos).shape[:2]
+	# # img = Image.open(ImagePos).resize((600, 450))
 
-	trf = T.Compose([
-		T.Resize(IMG_SIZE),
-		T.ToTensor(),
-		T.Normalize(
-			mean=[0.485, 0.456, 0.406],
-			std=[0.229, 0.224, 0.225]
-		)
-	])
+	# # trf = T.Compose([
+	# # 	T.Resize(IMG_SIZE),
+	# # 	T.ToTensor(),
+	# # 	T.Normalize(
+	# # 		mean=[0.485, 0.456, 0.406],
+	# # 		std=[0.229, 0.224, 0.225]
+	# # 	)
+	# # ])
 
-	input_img = trf(img).unsqueeze(0)
+	# # input_img = trf(img).unsqueeze(0)
 
-	out = deeplab(input_img)['out']
+	# # out = deeplab(input_img)['out']
 
-	out = torch.argmax(out.squeeze(), dim=0)
-	out = out.detach().cpu().numpy()
+	# # out = torch.argmax(out.squeeze(), dim=0)
+	# # out = out.detach().cpu().numpy()
 
-	out_seg = seg_map(out)
-	ClearImage = img.resize((640, 480)) & out_seg
+	# # out_seg = seg_map(out)
+	# ClearImage = Image.fromarray(img.resize((640, 480)) & out_seg).resize((Width,Height))
+	ClearImage = Image.open(ImagePos)
 
 	# Section 2
 
@@ -87,7 +90,7 @@ def GetHelmetImages(ImagePos):
 	
 	model = models.detection.keypointrcnn_resnet50_fpn(pretrained=True).eval()
 
-	ClearImage = Image.fromarray(ClearImage)
+	# ClearImage = Image.fromarray(ClearImage)
 	img = ClearImage.resize((IMG_SIZE, int(ClearImage.height * IMG_SIZE / ClearImage.width)))
 
 	trf = T.Compose([
@@ -137,7 +140,8 @@ def GetHelmetImages(ImagePos):
 		HeadList.append((
 						np.asarray(img)[int(y0):int(y0 + (HeadMiddlePoint[1] - y0) * 2),int(x0) : int(x1)],
 						(int(x0), int(y0)),
-						(int(x1), int(y0 + (HeadMiddlePoint[1] - y0) * 2))
+						(int(x1), int(y0 + (HeadMiddlePoint[1] - y0) * 2)),
+						(box),
 						))
 	
 	return HeadList
